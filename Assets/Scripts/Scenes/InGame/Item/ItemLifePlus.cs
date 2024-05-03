@@ -12,7 +12,6 @@ public class ItemLifePlus : ItemMove
     
     private void OnTriggerEnter2D(Collider2D collision) //2D‚É‚Í2D—p‚ÌŠÖ”‚ª‚ ‚é‚æi1”sj
     {
-        Debug.Log("tyutatyuta-");
         if (collision.gameObject.CompareTag("Player"))
         {
             ItemActive();
