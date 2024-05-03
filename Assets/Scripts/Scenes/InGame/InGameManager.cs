@@ -31,8 +31,6 @@ namespace Scenes.InGame.Manager
         public IObservable<Unit> OnRestart => Restart;
 
         //Todo
-        //private ReactiveProperty<bool> BallNoMove => new ReactiveProperty<bool>(_ballStatus.IsMovable);
-        //public  IReadOnlyReactiveProperty<bool> OnBallNoMove => BallNoMove;
         
         private void Awake()
         {
@@ -47,8 +45,10 @@ namespace Scenes.InGame.Manager
         }
         void Start()
         {
+            _stickStatus = FindObjectOfType<StickStatus>();
             _ballSpawner = GetComponent<BallSpawner>();
             StartCoroutine(BallSpawn());
+            _stickStatus.Init();
         }
 
        
@@ -61,10 +61,20 @@ namespace Scenes.InGame.Manager
         public void GameOver()
         {
             _ballStatus = FindObjectOfType<BallStatus>();
-            _stickStatus = FindObjectOfType<StickStatus>();
             _ballStatus.StopMove();
             _stickStatus.StopMove();
         }
+
+        public void DeadframeColl()
+        {
+                _stickStatus.HpMinus(1);
+            
+            if (_stickStatus.Hp.Value == 0)
+            {
+                GameOver();
+            }
+        }
+
         public void BlockSize(int i)
         {
             _blockSize = i;
