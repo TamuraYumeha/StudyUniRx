@@ -1,4 +1,7 @@
 using UnityEngine;
+using UniRx;
+using System;
+
 namespace Scenes.InGame.Block
 {
     public class Block : MonoBehaviour, IDamagable
@@ -6,9 +9,12 @@ namespace Scenes.InGame.Block
         [Header("ブロックのパラメータ")]
         [SerializeField,Tooltip("ブロックの耐久度")]
         private int _hp = 1;
-
+        [SerializeField] private GameObject[] item;
+        private int itemNum = 0; //何のアイテムをドロップするか
         public void Break()
         {
+            if(itemNum!= (int)ItemEnum.None)
+            Instantiate(item[itemNum],this.transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
 

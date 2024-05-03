@@ -53,7 +53,7 @@ namespace Scenes.InGame.Ball
         {
             if (collision.gameObject.CompareTag("DeadFrame"))
             {
-                InGameManager.Instance.GameOver();
+                InGameManager.Instance.DeadframeColl();
             }
             else if (collision.gameObject.CompareTag("Player"))
             {
