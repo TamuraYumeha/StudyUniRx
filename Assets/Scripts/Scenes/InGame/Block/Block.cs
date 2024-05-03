@@ -7,10 +7,15 @@ namespace Scenes.InGame.Block
     public class Block : MonoBehaviour, IDamagable
     {
         [Header("ブロックのパラメータ")]
-        [SerializeField,Tooltip("ブロックの耐久度")]
-        private int _hp = 1;
+        [Tooltip("ブロックの耐久度")]
+        public int _hp;             //どうにか保護レベル上げられない？
         [SerializeField] private GameObject[] item;
-        private int itemNum = (int)ItemEnum.None; //何のアイテムをドロップするか
+        private int itemNum = (int)ItemEnum.None; //何のアイテムをドロップするか(ノーマルの時常にNoneにしたい)
+
+        public void Init()
+        {
+            _hp = 1;
+        }
         public void Break()
         {
             if(itemNum!= (int)ItemEnum.None)
