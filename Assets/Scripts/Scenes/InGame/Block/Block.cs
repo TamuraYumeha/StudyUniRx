@@ -10,7 +10,7 @@ namespace Scenes.InGame.Block
         [SerializeField,Tooltip("ブロックの耐久度")]
         private int _hp = 1;
         [SerializeField] private GameObject[] item;
-        private int itemNum = 0; //何のアイテムをドロップするか
+        private int itemNum = (int)ItemEnum.None; //何のアイテムをドロップするか
         public void Break()
         {
             if(itemNum!= (int)ItemEnum.None)
