@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Scenes.InGame.Ball;
 using Scenes.InGame.Stick;
 using TMPro;
@@ -51,7 +52,14 @@ namespace Scenes.InGame.Manager
             _stickStatus.Init();
         }
 
-       
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))//uniRx‚Ý‚½‚¢‚ÈŠ´‚¶‚Å‰Ÿ‚µ‚½uŠÔ‚¾‚¯”½‰ž‚µ‚Ä‚­‚ê‚é‚â‚Â‚Æ‚©‚È‚¢‚ÌH
+            {
+                SceneManager.LoadScene("Start");
+            }
+        }
+
         IEnumerator BallSpawn()
         {
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
@@ -63,6 +71,7 @@ namespace Scenes.InGame.Manager
             _ballStatus = FindObjectOfType<BallStatus>();
             _ballStatus.StopMove();
             _stickStatus.StopMove();
+            SaveHighScore();
         }
 
         public void DeadframeColl()
@@ -100,5 +109,15 @@ namespace Scenes.InGame.Manager
                 GameOver();
             }
         }
+        
+        public void SaveHighScore()
+        {
+            if(PlayerPrefs.GetInt("HighScore") < _score)
+            {
+                PlayerPrefs.SetInt("HighScore", _score);
+                Debug.Log("memory:"+ PlayerPrefs.GetInt("HighScore"));
+            }
+        }
+        
     }
 }
